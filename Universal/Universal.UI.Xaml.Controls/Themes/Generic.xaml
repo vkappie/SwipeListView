@@ -40,7 +40,7 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltBaseHighBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
-                                        <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter" />
+                                        <!--<PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter" />-->
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Pressed">
@@ -55,7 +55,7 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltBaseHighBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
-                                        <PointerDownThemeAnimation TargetName="ContentPresenter" />
+                                        <!--<PointerDownThemeAnimation TargetName="ContentPresenter" />-->
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Selected">
@@ -74,7 +74,7 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltBaseHighBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
-                                        <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter" />
+                                        <!--<PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter" />-->
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="PointerOverSelected">
@@ -93,7 +93,7 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltBaseHighBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
-                                        <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter" />
+                                        <!--<PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter" />-->
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="PressedSelected">
@@ -112,7 +112,7 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltBaseHighBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
-                                        <PointerDownThemeAnimation TargetName="ContentPresenter" />
+                                        <!--<PointerDownThemeAnimation TargetName="ContentPresenter" />-->
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>

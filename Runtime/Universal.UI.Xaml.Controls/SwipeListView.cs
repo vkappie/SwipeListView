@@ -156,5 +156,23 @@ namespace Universal.UI.Xaml.Controls
         public static readonly DependencyProperty ItemRightBehaviorProperty =
             DependencyProperty.Register("ItemRightBehavior", typeof(SwipeListBehavior), typeof(SwipeListView), new PropertyMetadata(SwipeListBehavior.Expand));
         #endregion
+
+        public static readonly DependencyProperty ItemLeftBehaviorPathProperty = DependencyProperty.Register(
+            "ItemLeftBehaviorPath", typeof (String), typeof (SwipeListView), new PropertyMetadata(default(String)));
+
+        public String ItemLeftBehaviorPath
+        {
+            get { return (String) GetValue(ItemLeftBehaviorPathProperty); }
+            set { SetValue(ItemLeftBehaviorPathProperty, value); }
+        }
+
+        public static readonly DependencyProperty ItemRightBehaviorPathProperty = DependencyProperty.Register(
+            "ItemRightBehaviorPath", typeof (String), typeof (SwipeListView), new PropertyMetadata(default(String)));
+
+        public String ItemRightBehaviorPath
+        {
+            get { return (String) GetValue(ItemRightBehaviorPathProperty); }
+            set { SetValue(ItemRightBehaviorPathProperty, value); }
+        }
     }
 }

@@ -21,6 +21,11 @@ namespace Universal.UI.Xaml.Controls
         /// <summary>
         /// Swipe is disabled.
         /// </summary>
-        Disabled
+        Disabled,
+
+        /// <summary>
+        /// Uses Path property to determine if swipe is enabled. If True - uses Expand, if False - uses Collapse
+        /// </summary>
+        Path
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 #if SILVERLIGHT
@@ -40,6 +41,9 @@ namespace Universal.UI.Xaml.Controls
         private Border DragContainer;
 
         private SwipeListView _parent;
+
+        private PropertyInfo _leftSwipeProperty;
+        private PropertyInfo _rightSwipeProperty;
 
         public SwipeListViewItem()
         {
@@ -131,7 +135,10 @@ namespace Universal.UI.Xaml.Controls
                 RightTransform.X = (RightContainer.ActualWidth + 20);
 
                 DragClip.Rect = new Rect(_direction == SwipeListDirection.Left ? -ActualWidth : ActualWidth, 0, ActualWidth, ActualHeight);
-
+                if (LeftBehavior == SwipeListBehavior.Path || RightBehavior == SwipeListBehavior.Path)
+                {
+                    InitSwipeProperties();
+                }
                 if (_direction == SwipeListDirection.Left && LeftBehavior != SwipeListBehavior.Disabled)
                 {
                     DragBackground.Background = LeftBackground;
@@ -155,8 +162,8 @@ namespace Universal.UI.Xaml.Controls
 
             if (_direction == SwipeListDirection.Left)
             {
-                var area1 = LeftBehavior == SwipeListBehavior.Collapse ? 1.5 : 2.5;
-                var area2 = LeftBehavior == SwipeListBehavior.Collapse ? 2 : 3;
+                var area1 = (LeftBehavior == SwipeListBehavior.Collapse || LeftBehavior == SwipeListBehavior.Path) ? 1.5 : 2.5;
+                var area2 = (LeftBehavior == SwipeListBehavior.Collapse || LeftBehavior == SwipeListBehavior.Path) ? 2 : 3;
 
                 ContentDragTransform.X = Math.Max(0, Math.Min(cumulative.X, ActualWidth));
                 DragClipTransform.X = Math.Max(0, Math.Min(cumulative.X, ActualWidth));
@@ -181,8 +188,8 @@ namespace Universal.UI.Xaml.Controls
             }
             else if (_direction == SwipeListDirection.Right)
             {
-                var area1 = RightBehavior == SwipeListBehavior.Collapse ? 1.5 : 2.5;
-                var area2 = RightBehavior == SwipeListBehavior.Collapse ? 2 : 3;
+                var area1 = RightBehavior == SwipeListBehavior.Collapse || RightBehavior == SwipeListBehavior.Path ? 1.5 : 2.5;
+                var area2 = RightBehavior == SwipeListBehavior.Collapse || RightBehavior == SwipeListBehavior.Path ? 2 : 3;
 
                 ContentDragTransform.X = Math.Max(-ActualWidth, Math.Min(cumulative.X, 0));
                 DragClipTransform.X = Math.Max(-ActualWidth, Math.Min(cumulative.X, 0));
@@ -210,6 +217,20 @@ namespace Universal.UI.Xaml.Controls
             //base.OnManipulationDelta(e);
         }
 
+        private void InitSwipeProperties()
+        {
+            if (_leftSwipeProperty == null && _parent.ItemLeftBehaviorPath != null)
+            {
+                _leftSwipeProperty = this.Content.GetType().GetRuntimeProperty(_parent.ItemLeftBehaviorPath);
+                if(_leftSwipeProperty==null || !(Boolean)_leftSwipeProperty.GetValue(this.Content)) LeftBehavior = SwipeListBehavior.Disabled;
+            }
+            if (_rightSwipeProperty == null && _parent.ItemRightBehaviorPath != null)
+            {
+                _rightSwipeProperty = this.Content.GetType().GetRuntimeProperty(_parent.ItemRightBehaviorPath);
+                if (_rightSwipeProperty == null || !(Boolean)_rightSwipeProperty.GetValue(this.Content)) RightBehavior = SwipeListBehavior.Disabled;
+            }
+        }
+
 #if SILVERLIGHT
         protected override void OnManipulationCompleted(ManipulationCompletedEventArgs e)
 #else
@@ -227,14 +248,14 @@ namespace Universal.UI.Xaml.Controls
 
             if (_direction == SwipeListDirection.Left && ContentDragTransform.X >= target)
             {
-                if (LeftBehavior == SwipeListBehavior.Collapse)
+                if (LeftBehavior == SwipeListBehavior.Collapse || LeftBehavior == SwipeListBehavior.Path)
                     currentAnim = CollapseAnimation(SwipeListDirection.Left, true);
                 else
                     currentAnim = ExpandAnimation(SwipeListDirection.Left);
             }
             else if (_direction == SwipeListDirection.Right && ContentDragTransform.X <= -target)
             {
-                if (RightBehavior == SwipeListBehavior.Collapse)
+                if (RightBehavior == SwipeListBehavior.Collapse || RightBehavior == SwipeListBehavior.Path)
                     currentAnim = CollapseAnimation(SwipeListDirection.Right, true);
                 else
                     currentAnim = ExpandAnimation(SwipeListDirection.Right);

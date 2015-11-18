@@ -55,5 +55,10 @@ namespace Demo.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
         }
+
+        public Boolean IsSwipeEnabled
+        {
+            get { return true; }
+        }
     }
 }
